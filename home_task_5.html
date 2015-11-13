@@ -1,0 +1,53 @@
+﻿<html>
+<head>
+<title>Geekhub - Java for web: Lesson #5</title>
+<style>
+code {
+padding: 1px 2px;
+color: #333;
+background-color: #f7f7f9;
+border: 1px solid #e1e1e8;
+border-radius: 2px;
+font-size: 12px;
+}
+</style>
+</head>
+<body>
+<div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 14px; color: #333; width: 800px; line-height: 21px;">
+<h1>Geekhub - Java for web: Lesson #5</h1>
+<h2>The Idea</h2>
+<p>You need to develop a simple <b>Translation Application</b> that translates any text to Russian.  Input parameter should be a path to original text. Possible values are <code>D:/folder/original.txt</code>, <code>https://somedomain.com/original.txt</code> or <code>ftp://ftpdomain.com/original.txt</code>.</p>
+
+<p>To make our life easier let suppose that original text is encoded in UTF-8 encoding.</p>
+
+<p>Application should start in console mode and wait for input. As soon as we enter valid path it should translate original text to Russian and print to console original and translated texts. In case of error happened (text could not be obtained by path provided, Cannot connect to specified URL, etc.) it should print a message about that error and ask user to enter another path.</p>
+
+<h2>What to do</h2>
+
+<ol>
+<li>
+Download and unarchive project template <a href="https://www.dropbox.com/s/zb0je94u9pqetug/Translator.zip?dl=0">Translation.zip</a>. It will be a start point for implementing the assignment.<br><br>
+</li>
+<li>
+Application should use <b>Yandex Translate API</b> to translate original texts. More details about the service you can find at <a href="http://api.yandex.ru/translate/">http://api.yandex.ru/translate/</a>. To be able to use the service you should get <b>API key</b> and use it in the Application. To do that you should access <a href="http://api.yandex.ru/key/form.xml?service=trnsl">http://api.yandex.ru/key/form.xml?service=trnsl</a> and follow the instructions. (You will be asked for Authorization. Please, create an account if you do not have it yet). After you obtain the key you should update it in <code>Translator</code> class for <code>YANDEX_API_KEY</code> constant.<br><br>
+</li>
+<li>
+<code>SourceProvider</code> interface was provided to implement different kind of source, to be able to extract text from different sources.Your target is to make implementation of <code>FileSourceProvider</code> and <code>URLSourceProvider</code>. Both should implement <code>SourceProvider</code> interface. More details about implementation you can find in <code>SourceProvider</code> file.<br><br>
+</li>
+<li>
+After <code>FileSourceProvider</code> and <code>URLSourceProvider</code> will be implemented you should implement <code>SourceLoader</code> class. Its main purpose is to utilize different implementations of <code>SourceProvider</code> and use corresponding one based on specified path.<br><br>
+</li>
+<li>
+After that it’s time to complete implementation of <code>Translator</code> class. <code>YANDEX_API_KEY</code> should be already specified if you complete step #1.<br>
+Start with <code>String encodeText(String text)</code>. This method should take an original text that should be translated and encode it to use as URL parameter. <br>
+Then implement <code>String parseContent(String content)</code> method. It shold “extract” translated text from Yandex Translator response. More details about response format you can find at <a href="http://api.yandex.ru/translate/doc/dg/reference/translate.xml">http://api.yandex.ru/translate/doc/dg/reference/translate.xml</a>, we need to use XML interface.<br>
+And by using implemented methods and <code>urlSourceProvider</code> you should implement <code>String translate(String original)</code> method that should return translation of original text.<br><br>
+</li>
+<li>
+Last thing is to put everything together. Some implementation is done in <code>TranslatorController</code>. But you should add right exception handling that was described at the very beginning.
+</li>
+</ol>
+Please, test you solution with some text in English that will be located in file on your computer and some text that can be obtained from Internet (this URL can be used for that <a href="https://www.dropbox.com/s/4ciqout5vrgpcta/en.txt?dl=0">en.txt</a>)
+</div>
+</body>
+</html>

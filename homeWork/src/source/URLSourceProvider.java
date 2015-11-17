@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 public class URLSourceProvider implements SourceProvider {
 
     @Override
-    public boolean isAllowed(String pathToSource) {
+    public boolean  isAllowed(String pathToSource) {
         try{
             Path path = Paths.get(new URI(pathToSource));
             return true;
